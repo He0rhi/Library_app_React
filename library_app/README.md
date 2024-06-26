@@ -2,6 +2,7 @@ Link to deploy the application https://delicate-panda-da271f.netlify.app/
 DEPLOYMENT USING VPN ONLY!
 ---
 Доделать:
+
 -Исправить ошибку при поиске с категорией All
 
 -Дизайн кнопок пагинации и возврата на главную страницу
