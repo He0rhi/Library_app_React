@@ -1,17 +1,16 @@
 import React from 'react';
 
 const SpinnerLoader: React.FC = () => {
+  const faces = Array.from({ length: 6 }, (_, index) => (
+    <div className={`face${index + 1}`} key={`face-${index + 1}`}></div>
+  ));
+
   return (
-    <div className="stage" > 
-    <div className="cubespinner"> 
-        <div className="face1"></div> 
-        <div className="face2"></div> 
-        <div className="face3"></div> 
-        <div className="face4"></div> 
-        <div className="face5"></div> 
-        <div className="face6"></div> 
-    </div> 
-</div>
+    <div className="stage">
+      <div className="cubespinner">
+        {faces}
+      </div>
+    </div>
   );
 };
 
