@@ -16,16 +16,16 @@ const Home: React.FC = () => {
   const { searchName, category, sorting, books, totalItems, startIndex, selectedBook, loading } = useSelector(
     (state: RootState) => state.books
   );
-  const [debouncedSearchName] = useDebounce(searchName, 2000); 
+  const [debouncedSearchName] = useDebounce(searchName, 2000);
 
   useEffect(() => {
     const loadBooks = async () => {
-      dispatch({ type: BOOK_REQUEST });
+      dispatch(requestBooks()); 
       try {
-        const result = await fetchBook(debouncedSearchName, category, sorting, startIndex);
-        dispatch({ type: BOOK_SUCCESS, payload: result });
+        const { books, totalItems } = await fetchBook(debouncedSearchName, category, sorting, startIndex);
+        dispatch(successBooks(books, totalItems)); 
       } catch (error) {
-        dispatch({ type: BOOK_ERROR, payload: error });
+        dispatch(errorBooks(error)); 
       }
     };
 
@@ -33,12 +33,12 @@ const Home: React.FC = () => {
   }, [dispatch, debouncedSearchName, category, sorting, startIndex]);
 
   const handleSearch = async () => {
-    dispatch({ type: BOOK_REQUEST });
+    dispatch(requestBooks());
     try {
-      const result = await fetchBook(debouncedSearchName, category, sorting, startIndex);
-      dispatch({ type: BOOK_SUCCESS, payload: result });
+      const { books, totalItems } = await fetchBook(debouncedSearchName, category, sorting, startIndex);
+      dispatch(successBooks(books, totalItems));
     } catch (error) {
-      dispatch({ type: BOOK_ERROR, payload: error });
+      dispatch(errorBooks(error)); 
     }
   };
 
@@ -53,7 +53,7 @@ const Home: React.FC = () => {
   return (
     <div>
       <Container className="HomeMainContainer">
-          <SearchForm
+        <SearchForm
           searchName={searchName}
           setSearchName={(name) => dispatch(setSearchParams(name, category, sorting))}
           category={category}
@@ -80,5 +80,10 @@ const Home: React.FC = () => {
     </div>
   );
 };
+
+
+const requestBooks = () => ({ type: 'BOOK_REQUEST' });
+const successBooks = (books: any, totalItems: any) => ({ type: 'BOOK_SUCCESS', payload: { books, totalItems } });
+const errorBooks = (error: any) => ({ type: 'BOOK_ERROR', payload: error });
 
 export default Home;
