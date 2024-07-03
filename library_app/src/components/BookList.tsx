@@ -10,7 +10,7 @@ interface BookListProps {
   onBookSelect:(book:any)=>void;
 }
 
-const BookList: React.FC<BookListProps> = ({ books,totalItems,startIndex,loadNext,loadPrev,onBookSelect }) => {
+const BookList: React.FC<BookListProps> = ({ books=[],totalItems,startIndex,loadNext,loadPrev,onBookSelect }) => {
   return (
   <div className='book_list_main'>
     <p className='total_items'>Книг найдено: {totalItems}</p>
@@ -21,7 +21,7 @@ const BookList: React.FC<BookListProps> = ({ books,totalItems,startIndex,loadNex
 <Card className='book_card' onClick={()=>{
   onBookSelect(book)
 }}>
-<Card.Img src={book.volumeInfo.imageLinks?.thumbnail} className='img-fluid'></Card.Img>
+<Card.Img src={book.volumeInfo.imageLinks?.thumbnail} className='img-fluid card_img'></Card.Img>
 <Card.Body className='card_body'>
 <Card.Text className='categories_text'>{book.volumeInfo.categories?.[0]}</Card.Text>
 
@@ -35,9 +35,9 @@ const BookList: React.FC<BookListProps> = ({ books,totalItems,startIndex,loadNex
     )}
     </Row>
     {startIndex + 5 < totalItems && (
-        <div className="text-center">
-          <Button variant="primary" onClick={loadPrev}>Load prev</Button>
-          <Button variant="primary" onClick={loadNext}>Load next</Button>
+        <div className="pagination_buttons">
+          <Button className='pagination_button_left' variant="primary" onClick={loadPrev}></Button>
+          <Button className='pagination_button_right' variant="primary" onClick={loadNext}></Button>
         </div>
       )}
   </div></div>

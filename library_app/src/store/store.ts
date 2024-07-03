@@ -1,11 +1,11 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk, { ThunkMiddleware } from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import booksReducer from '../reducers/bookReducer';
+import bookReducer from './reducers/bookReducer';
 
 
 const rootReducer = combineReducers({
-  books: booksReducer,
+  books: bookReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

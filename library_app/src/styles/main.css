@@ -25,11 +25,15 @@ color: whitesmoke;
     padding: 30px;
 background-image: url("./img/bibliotheque_livres.jpg");
     width: 100%;
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 .search_control_tint{
   background-color: rgba(0, 0, 0,0.7);
   background-blend-mode: multiply;
+  box-shadow: 0px -53px 23px -10px rgba(255, 0, 0, 0.36) inset;
+}
+.book_list_main{
+  box-shadow: 1px 82px 18px -59px rgba(129, 129, 129, 0.34) inset;
 
 }
 .search_button{
@@ -57,6 +61,9 @@ justify-content: space-between;
 }
 .title_text{
   font-weight: bold;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
 }
 .details_title_text{
   font-weight:normal;
@@ -142,10 +149,17 @@ text-align: center;
         padding: 30px;
         
     }
+    @keyframes ani {
+      0% {opacity: 0;}
+      100% {opacity: 1;}
+    }
     .book_card{
         padding: 15px;
-   
-       
+        animation: ani 1s forwards;
+        opacity: 0;
+        transition: box-shadow 0.2s ease-in-out;
+
+       cursor: pointer;
         width: 220px;
         margin: 10px;
        height: 350px;
@@ -158,9 +172,14 @@ text-align: center;
     justify-content: space-around;
     align-items: center
     }
+    .book_card:hover{
+      box-shadow: 0px 3px 24px -8px rgb(255, 0, 0) inset;
+
+    }
     .card_body{
       text-align: left;
       width: 100%;
+      
     }
 
     .book_list .row {
@@ -168,8 +187,50 @@ text-align: center;
         flex-wrap: wrap;
         
       }
+      .pagination_button_left{
+        background: url("./img/levo.png") ;
+        width: 40px;
+        height: 40px;
+        background-size: contain; 
+        background-position: center; 
+        background-repeat: no-repeat; 
+        border: none; 
+        cursor: pointer; 
+        margin-right: 2px;
+      }
+      .pagination_button_right{
+        background: url("./img/pravo.png") ;
+        width: 40px;
+        height: 40px;
+        background-size: contain; 
+        background-position: center; 
+        background-repeat: no-repeat; 
+        border: none; 
+        cursor: pointer; 
+        margin-right: 2px;
+      }
+      .back_button{
+        background-color: white;
+        border: 1px solid rgb(188, 188, 188);
+        width: 40px;
+        cursor: pointer;
+        height: 30px;
+        margin-top: 10px;
+      }
+      .pagination_buttons{
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+      }
       .total_items{
-        margin-left: 40px;
+        display: flex;
+        justify-content: center;
+        padding-top: 30px;
+      }
+      .card_img{
+        box-shadow: 0px 36px 24px -8px rgba(255, 0, 0, 0.46);
+
       }
       .book_detail_card{
         width: 100%;
@@ -191,6 +252,8 @@ text-align: center;
       height: 100%;
     margin-left: auto;
     margin-right: auto;
+    box-shadow: 0px 36px 24px -8px rgba(255, 0, 0, 0.46);
+
      }
       .description_text{
         font-weight: 400;
@@ -253,9 +316,9 @@ padding: 15px;
     width: 120px;
     height: 120px;
     
-    border: 1px solid #ffffff;
+    border: 1px solid #000000;
     background: rgba(222, 222, 222, 0.6);
-    box-shadow: inset 0 0 20px #008db7;
+    box-shadow: inset 0 0 20px #b70000;
     line-height: 120px;
     font-size: 100px;
     color:#898989;

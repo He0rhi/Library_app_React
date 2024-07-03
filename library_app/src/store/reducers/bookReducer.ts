@@ -8,7 +8,7 @@ import {
     SET_SEARCH_PARAMS,
     LOAD_NEXT,
     LOAD_PREV
-  } from '../actions/bookActions';
+  } from '../../actions/bookActions';
 
   const initialState = {
     searchName: '',

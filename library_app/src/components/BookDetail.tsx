@@ -22,7 +22,7 @@ const BookDetail: React.FC<BookDetailProps> = ({book,onBack}) => {
   <Card.Text className='details_description_text'>
  {book.volumeInfo.description}
   </Card.Text>
-  <Button onClick={onBack}>BackToList</Button>
+  <Button className='back_button' onClick={onBack}>Back</Button>
 </Card.Body>
     </Card>
   )

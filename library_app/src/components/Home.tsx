@@ -6,20 +6,23 @@ import BookDetail from './BookDetail';
 import BookList from './BookList';
 import SearchForm from './SearchForm';
 import SpinnerLoader from './SpinnerLoader';
-import { RootState } from '../reducers/rootReducer';
+import { RootState } from '../store/reducers/rootReducer';
 import { fetchBook, selectBook, deselectBook, setSearchParams, loadNext, loadPrev,BOOK_REQUEST,BOOK_SUCCESS,BOOK_ERROR } from '../actions/bookActions';
+import { useDebounce } from 'use-debounce';
+
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
   const { searchName, category, sorting, books, totalItems, startIndex, selectedBook, loading } = useSelector(
     (state: RootState) => state.books
   );
+  const [debouncedSearchName] = useDebounce(searchName, 2000); 
 
   useEffect(() => {
     const loadBooks = async () => {
       dispatch({ type: BOOK_REQUEST });
       try {
-        const result = await fetchBook(searchName, category, sorting, startIndex);
+        const result = await fetchBook(debouncedSearchName, category, sorting, startIndex);
         dispatch({ type: BOOK_SUCCESS, payload: result });
       } catch (error) {
         dispatch({ type: BOOK_ERROR, payload: error });
@@ -27,12 +30,12 @@ const Home: React.FC = () => {
     };
 
     loadBooks();
-  }, [dispatch, searchName, category, sorting, startIndex]);
+  }, [dispatch, debouncedSearchName, category, sorting, startIndex]);
 
   const handleSearch = async () => {
     dispatch({ type: BOOK_REQUEST });
     try {
-      const result = await fetchBook(searchName, category, sorting, startIndex);
+      const result = await fetchBook(debouncedSearchName, category, sorting, startIndex);
       dispatch({ type: BOOK_SUCCESS, payload: result });
     } catch (error) {
       dispatch({ type: BOOK_ERROR, payload: error });
@@ -50,7 +53,7 @@ const Home: React.FC = () => {
   return (
     <div>
       <Container className="HomeMainContainer">
-        <SearchForm
+          <SearchForm
           searchName={searchName}
           setSearchName={(name) => dispatch(setSearchParams(name, category, sorting))}
           category={category}

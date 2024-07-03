@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Home from './components/Home';
-import './css/main.css'
+import './styles/main.css'
 const App: React.FC = () => {
   return (
     <div className="App">

@@ -11,7 +11,15 @@ export const LOAD_PREV = "LOAD_PREV";
 const keyapi = "AIzaSyDcPZLwvFtYt8P_sCxZ7anRQSwfNfS1O9I";
 
 export const fetchBook = async (searchName: string, category: string, sorting: string, startIndex: number) => {
-  const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(searchName)}+subject:${category}&startIndex=${startIndex}&maxResults=30&orderBy=${sorting}&key=${keyapi}`;
+  let subject ="";
+ 
+  if(category&&category!=="all"){
+subject=`+subject:${category}`;
+  }
+  if(searchName==""){
+    searchName="js"
+  }
+  const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(searchName)}${subject}&startIndex=${startIndex}&maxResults=30&orderBy=${sorting}&key=${keyapi}`;
 
   try {
     const response = await axios.get(url);
