@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Form, Button, FormControl, InputGroup, Row, Col, FormGroup } from 'react-bootstrap';
 
 interface SearchFormProps {
@@ -11,17 +11,35 @@ interface SearchFormProps {
   handleSearch: () => void;
 }
 
-const SearchForm: React.FC<SearchFormProps> = (props) => {
-  const { searchName, setSearchName, category, setCategory, sorting, setSorting, handleSearch } = props;
+const SearchForm: React.FC<SearchFormProps> = React.memo(({ searchName, setSearchName, category, setCategory, sorting, setSorting, handleSearch }) => {
+  
+  const memoizedHandleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleSearch();
+  }, [handleSearch]);
+
+  const memoizedHandleButtonClick = useCallback(() => {
+    handleSearch();
+  }, [handleSearch]);
+
+  const memoizedSetSearchName = useCallback((e:any) => {
+    setSearchName(e.target.value);
+  }, [setSearchName]);
+
+  const memoizedSetCategory = useCallback((e:any) => {
+    setCategory(e.target.value);
+  }, [setCategory]);
+
+  const memoizedSetSorting = useCallback((e:any) => {
+    setSorting(e.target.value);
+  }, [setSorting]);
 
   return (
     <div className='search_control search_control_tint'>
       <div className='header_main'>
         <div className='header_logo'>Search for books</div>
       </div>
-      <Form onSubmit={(e) => {
-        e.preventDefault(); handleSearch();
-      }}>
+      <Form onSubmit={memoizedHandleSubmit}>
         <InputGroup>
           <div className='input_group_form_button'>
             <Form.Control 
@@ -30,14 +48,14 @@ const SearchForm: React.FC<SearchFormProps> = (props) => {
               className='form_control' 
               placeholder='Search...'
               value={searchName}
-              onChange={(e) => setSearchName(e.target.value)}
-              onKeyDown={(e) => {
+              onChange={memoizedSetSearchName}
+              onKeyDown={(e:any) => {
                 if (e.key === 'Enter') {
-                  handleSearch();
+                  memoizedHandleSubmit(e);
                 }
               }}
             />
-            <Button className='search_button' onClick={handleSearch}></Button>
+            <Button className='search_button' onClick={memoizedHandleButtonClick}></Button>
           </div>
         </InputGroup>
         <Row className='rows'>
@@ -50,7 +68,7 @@ const SearchForm: React.FC<SearchFormProps> = (props) => {
                 id="category"
                 name="category"
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={memoizedSetCategory}
               >
                 <option value="">All</option>
                 <option value="art">Art</option>
@@ -70,7 +88,6 @@ const SearchForm: React.FC<SearchFormProps> = (props) => {
                 id="sorting"
                 name="sorting"
                 value={sorting}
-                onChange={(e) => setSorting(e.target.value)}
               >
                 <option value="relevance">Relevance</option>
                 <option value="newest">Newest</option>
@@ -81,6 +98,6 @@ const SearchForm: React.FC<SearchFormProps> = (props) => {
       </Form>
     </div>
   );
-};
+});
 
 export default SearchForm;
