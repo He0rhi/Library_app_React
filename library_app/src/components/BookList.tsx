@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useCallback } from 'react';
 import { Card, Col, Row, Button } from 'react-bootstrap';
 
 interface BookListProps {
@@ -10,7 +10,20 @@ interface BookListProps {
   onBookSelect:(book:any)=>void;
 }
 
-const BookList: React.FC<BookListProps> = ({ books=[],totalItems,startIndex,loadNext,loadPrev,onBookSelect }) => {
+
+const BookList: React.FC<BookListProps> = React.memo(({ books=[],totalItems,startIndex,loadNext,loadPrev,onBookSelect }) => {
+  const memoizedLoadNext = useCallback(() => {
+    loadNext();
+  }, [loadNext]);
+
+  const memoizedLoadPrev = useCallback(() => {
+    loadPrev();
+  }, [loadPrev]);
+
+  const memoizedOnBookSelect = useCallback((book:any) => {
+    onBookSelect(book);
+  }, [onBookSelect]);
+
   return (
   <div className='book_list_main'>
     <p className='total_items'>Книг найдено: {totalItems}</p>
@@ -42,6 +55,6 @@ const BookList: React.FC<BookListProps> = ({ books=[],totalItems,startIndex,load
       )}
   </div></div>
   );
-};
+});
 
 export default BookList;
