@@ -1,4 +1,4 @@
-Link to deploy the application [[https://delicate-panda-da271f.netlify.app/ ](https://667d54bd0786a8ce1d66b8b1--sparkling-capybara-c6c60e.netlify.app)](https://elegant-valkyrie-b09904.netlify.app)
+Link to deploy the application(https://667d54bd0786a8ce1d66b8b1--sparkling-capybara-c6c60e.netlify.app)](https://elegant-valkyrie-b09904.netlify.app)
 DEPLOYMENT USING VPN ONLY!
 ---
 Доделать:
