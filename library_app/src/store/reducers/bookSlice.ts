@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction,createAsyncThunk  } from "@reduxjs/toolkit";
 
 interface Book{
   id:number;
@@ -34,6 +34,9 @@ const bookSlice = createSlice({
   name:'books',
   initialState,
   reducers:{
+    fetchBook(state){
+      const
+    }
     bookRequest(state){
      state.loading=true;
     },

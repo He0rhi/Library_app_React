@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
+=======
+Link to deploy the application(https://elegant-valkyrie-b09904.netlify.app)
+DEPLOYMENT USING VPN ONLY!
+---
+Доделать:
+>>>>>>> f1c1b622f117cd072b2226a4b70d109671ea45a8
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
