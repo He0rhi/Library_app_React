@@ -1,6 +1,7 @@
-import React from 'react';
+import { FC, useCallback } from 'react';
 import { Form, Button, FormControl, InputGroup, Row, Col, FormGroup } from 'react-bootstrap';
-
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../firebase';
 interface SearchFormProps {
   searchName: string;
   setSearchName: (term: string) => void;
@@ -11,7 +12,7 @@ interface SearchFormProps {
   handleSearch: () => void;
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({
+const SearchForm: FC<SearchFormProps> = ({
   searchName,
   setSearchName,
   category,
@@ -28,18 +29,37 @@ const SearchForm: React.FC<SearchFormProps> = ({
     { value: 'medical', label: 'Medical' },
     { value: 'poetry', label: 'Poetry' }
   ];
+const [user] = useAuthState(auth);
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchName(e.target.value);
+  }, [setSearchName]);
 
+  const handleCategoryChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setCategory(e.target.value);
+  }, [setCategory]);
+
+  const handleSortingChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSorting(e.target.value);
+  }, [setSorting]);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  }, [handleSearch]);
+if(!user){
+  return(<p>Зарегистрируйтесь!</p>);
+}
   return (
     <div className='search_control search_control_tint'>
       <div className='header_main'>
         <div className='header_logo'>Search for books</div>
+        {}
       </div>
-      <Form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSearch();
-        }}
-      >
+      <Form onSubmit={(e) => {
+        e.preventDefault();
+        handleSearch();
+      }}>
         <InputGroup>
           <div className='input_group_form_button'>
             <Form.Control
@@ -48,12 +68,8 @@ const SearchForm: React.FC<SearchFormProps> = ({
               className='form_control'
               placeholder='Search...'
               value={searchName}
-              onChange={(e) => setSearchName(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  handleSearch();
-                }
-              }}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
             />
             <Button className='search_button' onClick={handleSearch}></Button>
           </div>
@@ -70,7 +86,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                 id='category'
                 name='category'
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={handleCategoryChange}
               >
                 {categoryOptions.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -91,7 +107,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                 id='sorting'
                 name='sorting'
                 value={sorting}
-                onChange={(e) => setSorting(e.target.value)}
+                onChange={handleSortingChange}
               >
                 <option value='relevance'>Relevance</option>
                 <option value='newest'>Newest</option>

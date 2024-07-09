@@ -1,43 +1,46 @@
-Link to deploy the application [https://delicate-panda-da271f.netlify.app/ ](https://667d54bd0786a8ce1d66b8b1--sparkling-capybara-c6c60e.netlify.app)
-DEPLOYMENT USING VPN ONLY!
----
-Доделать:
+# Getting Started with Create React App
 
--Исправить ошибку при поиске с категорией All
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
--Дизайн кнопок пагинации и возврата на главную страницу
+## Available Scripts
 
--Стандартизировать структуру проекта
+In the project directory, you can run:
 
--Сделать сборку webpack
+### `yarn start`
 
----
-# Практического задание js/react
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Задание
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-Необходимо разработать React-приложение поиска книг с помощью Google Books API. Документация: https://developers.google.com/books/docs/v1/using. Для авторизации запросов к API выбрать способ с предоставлением API key (https://developers.google.com/books/docs/v1/using#APIKey).
+### `yarn test`
 
-__Функционал__
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-- Должны быть текстовое поле и кнопка поиска. По введенной пользователем подстроке производится поиск книг. Триггером к поиску является либо нажатие Enter (когда текстовое поле в фокусе), либо нажатие кнопки поиска.
-- Фильтрация по категориям. Ниже текстового поля располагается селект с категориями: all, art, biography, computers, history, medical, poetry. Если выбрано "all" (выбрано изначально), то поиск производится по всем категориям.
-- Сортировка. Рядом с селектом категорий находится селект с вариантами сортировки: relevance (выбран изначально), newest. 
-- Найденные книги отображаются карточками, каждая из которых состоит из изображения обложки книги, названия книги, названия категории и имен авторов. Если для книги приходит несколько категорий, то отображается только первая. Авторы отображаются все. Если не приходит какой-либо части данных, то вместо нее просто пустое место.
-- Над блоком с карточками отображается количество найденных по запросу книг.
-- Пагинация реализована по принципу 'load more'. Ниже блока с карточками находится кнопка 'Load more', по клику на нее к уже загруженным книгам подгружаются еще. Шаг пагинации - 30.
-- При клике на карточку происходит переход на детальную страницу книги, на которой выводятся ее данные: изображение обложки, название, все категории, все авторы, описание.
+### `yarn build`
 
-__Замечания__
-- При желании можно использовать Redux/Mobx
-- Во время загрузки книг стоит показать какой-то индикатор
-- Можно использовать сторонние библиотеки, например для визуализации и украшении приложения можно использовать [Bootstrap](http://getbootstrap.com/) или похожего UI фреймворк.
-- Помните про обработку ошибок!
-- Верстка может быть самая простая, однако она не должна ломаться при разрешениях от 320px до 1920px. 
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-__Примерный вид приложения__
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-![image](./js-react.png)
-![image](./js-react1.png)
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
----
+### `yarn eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).

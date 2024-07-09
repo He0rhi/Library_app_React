@@ -1,18 +1,14 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-import thunk, { ThunkMiddleware } from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import bookReducer from './reducers/bookReducer';
+// store/index.ts
+import { configureStore } from '@reduxjs/toolkit';
+import bookSlice from './reducers/bookSlice';
+import userSlice from './reducers/userSlice'; 
 
-
-const rootReducer = combineReducers({
-  books: bookReducer,
+export const store = configureStore({
+  reducer: {
+    books: bookSlice,
+    user: userSlice, 
+  },
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
-
-// Создаем Redux-хранилище
-const store = createStore(
-  rootReducer
-);
-
-export default store;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

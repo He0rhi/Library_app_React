@@ -1,4 +1,4 @@
-import React,{ useCallback } from 'react';
+import { useCallback,FC,memo } from 'react';
 import { Card, Col, Row, Button } from 'react-bootstrap';
 
 interface BookListProps {
@@ -9,9 +9,9 @@ interface BookListProps {
   loadPrev:()=>void;
   onBookSelect:(book:any)=>void;
 }
+const step=5;
 
-
-const BookList: React.FC<BookListProps> = React.memo(({ books=[],totalItems,startIndex,loadNext,loadPrev,onBookSelect }) => {
+const BookList: FC<BookListProps> = memo(({ books=[],totalItems,startIndex,loadNext,loadPrev,onBookSelect }) => {
   const memoizedLoadNext = useCallback(() => {
     loadNext();
   }, [loadNext]);
@@ -47,10 +47,10 @@ const BookList: React.FC<BookListProps> = React.memo(({ books=[],totalItems,star
       )
     )}
     </Row>
-    {startIndex + 5 < totalItems && (
+    {startIndex + step < totalItems && (
         <div className="pagination_buttons">
-          <Button className='pagination_button_left' variant="primary" onClick={loadPrev}></Button>
-          <Button className='pagination_button_right' variant="primary" onClick={loadNext}></Button>
+          <Button className='pagination_button_left' variant="primary" onClick={memoizedLoadNext}></Button>
+          <Button className='pagination_button_right' variant="primary" onClick={memoizedLoadPrev}></Button>
         </div>
       )}
   </div></div>

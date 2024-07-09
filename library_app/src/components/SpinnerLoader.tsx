@@ -1,6 +1,6 @@
-import React from 'react';
+import {FC} from 'react';
 
-const SpinnerLoader: React.FC = () => {
+const SpinnerLoader: FC = () => {
   const faces = Array.from({ length: 6 }, (_, index) => (
     <div className={`face${index + 1}`} key={`face-${index + 1}`}></div>
   ));

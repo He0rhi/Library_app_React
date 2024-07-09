@@ -1,44 +1,30 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Container, Spinner } from 'react-bootstrap';
-import Header from './Header';
+import React from 'react';
+import { Container } from 'react-bootstrap';
 import BookDetail from './BookDetail';
 import BookList from './BookList';
 import SearchForm from './SearchForm';
 import SpinnerLoader from './SpinnerLoader';
-import { RootState } from '../store/reducers/rootReducer';
-import { fetchBook, selectBook, deselectBook, setSearchParams, loadNext, loadPrev,BOOK_REQUEST,BOOK_SUCCESS,BOOK_ERROR } from '../actions/bookActions';
-import { useDebounce } from 'use-debounce';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 
-const Home: React.FC = () => {
+interface HomeProps {
+  user: any;
+}
+
+const Home: React.FC<HomeProps> = ({ user }) => {
   const dispatch = useDispatch();
   const { searchName, category, sorting, books, totalItems, startIndex, selectedBook, loading } = useSelector(
     (state: RootState) => state.books
   );
-  const [debouncedSearchName] = useDebounce(searchName, 2000);
-
-  useEffect(() => {
-    const loadBooks = async () => {
-      dispatch(requestBooks()); 
-      try {
-        const { books, totalItems } = await fetchBook(debouncedSearchName, category, sorting, startIndex);
-        dispatch(successBooks(books, totalItems)); 
-      } catch (error) {
-        dispatch(errorBooks(error)); 
-      }
-    };
-
-    loadBooks();
-  }, [dispatch, debouncedSearchName, category, sorting, startIndex]);
 
   const handleSearch = async () => {
     dispatch(requestBooks());
     try {
-      const { books, totalItems } = await fetchBook(debouncedSearchName, category, sorting, startIndex);
+      const { books, totalItems } = await fetchBook(searchName, category, sorting, startIndex);
       dispatch(successBooks(books, totalItems));
     } catch (error) {
-      dispatch(errorBooks(error)); 
+      dispatch(errorBooks(error));
     }
   };
 
@@ -64,23 +50,26 @@ const Home: React.FC = () => {
         />
         {loading ? (
           <SpinnerLoader />
-        ) : selectedBook ? (
-          <BookDetail book={selectedBook} onBack={handleBookToList} />
+        ) : user ? (
+          selectedBook ? (
+            <BookDetail book={selectedBook} onBack={handleBookToList} />
+          ) : (
+            <BookList
+              books={books}
+              totalItems={totalItems}
+              startIndex={startIndex}
+              loadNext={() => dispatch(loadNext())}
+              loadPrev={() => dispatch(loadPrev())}
+              onBookSelect={handleBookSelect}
+            />
+          )
         ) : (
-          <BookList
-            books={books}
-            totalItems={totalItems}
-            startIndex={startIndex}
-            loadNext={() => dispatch(loadNext())}
-            loadPrev={() => dispatch(loadPrev())}
-            onBookSelect={handleBookSelect}
-          />
+          <p>Please sign in to see the book list.</p>
         )}
       </Container>
     </div>
   );
 };
-
 
 const requestBooks = () => ({ type: 'BOOK_REQUEST' });
 const successBooks = (books: any, totalItems: any) => ({ type: 'BOOK_SUCCESS', payload: { books, totalItems } });

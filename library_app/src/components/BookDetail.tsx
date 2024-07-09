@@ -1,4 +1,4 @@
-import React from 'react';
+import {FC} from 'react';
 import { Card, Button } from 'react-bootstrap';
 
 interface BookDetailProps {
@@ -22,7 +22,7 @@ const normalizeDescription = (description: string | undefined) => {
   return description || "No description available.";
 };
 
-const BookDetail: React.FC<BookDetailProps> = ({ book, onBack }) => {
+const BookDetail: FC<BookDetailProps> = ({ book, onBack }) => {
   if (!book) return null;
 
   const { volumeInfo } = book;
