@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-// Функция для создания диапазона чисел
 const createRange = (start, end) => Array.from({ length: end - start + 1 }, (_, i) => start + i);
 
 const statusCodes = [
@@ -14,7 +13,6 @@ const statusCodes = [
   ...createRange(500, 511)
 ];
 
-// Описание статус-кодов на русском языке
 const statusDescriptions = {
   200: 'ОК',
   201: 'Создано',
@@ -77,7 +75,6 @@ const statusDescriptions = {
   511: 'Требуется сетевая аутентификация'
 };
 
-// Функция для создания маршрутов
 statusCodes.forEach(code => {
   app.get(`/status/${code}`, (req, res) => {
     const description = statusDescriptions[code] || 'Неизвестный статус';
