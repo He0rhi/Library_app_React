@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 # Getting Started with Create React App
 =======
-Link to deploy the application(https://elegant-valkyrie-b09904.netlify.app)
+Link to deploy the application(https://papaya-duckanoo-3cc923.netlify.app)
 DEPLOYMENT USING VPN ONLY!
 ---
 Доделать:
