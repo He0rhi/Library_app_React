@@ -8,7 +8,7 @@ export const DESELECT_BOOK = "DESELECT_BOOK";
 export const SET_SEARCH_PARAMS = "SET_SEARCH_PARAMS";
 export const LOAD_NEXT = "LOAD_NEXT";
 export const LOAD_PREV = "LOAD_PREV";
-const keyapi = "AIzaSyDcPZLwvFtYt8P_sCxZ7anRQSwfNfS1O9I";
+const keyapi = process.env.REACT_APP_GOOGLE_BOOKS_API_KEY;
 
 export const fetchBook = async (searchName: string, category: string, sorting: string, startIndex: number) => {
   let subject ="";
@@ -25,7 +25,7 @@ subject=`+subject:${category}`;
     const response = await axios.get(url);
     return { books: response.data.items ?? [], totalItems: response.data.totalItems ?? 0 };
   } catch (error) {
-    throw error;
+   console.log(error);
   }
 };
 

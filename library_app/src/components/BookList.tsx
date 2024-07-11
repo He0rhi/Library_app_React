@@ -1,6 +1,5 @@
-import { useCallback,FC,memo } from 'react';
+import  React, { useCallback,FC,memo } from 'react';
 import { Card, Col, Row, Button } from 'react-bootstrap';
-
 interface BookListProps {
   books: any[];
   totalItems:number;
@@ -20,9 +19,6 @@ const BookList: FC<BookListProps> = memo(({ books=[],totalItems,startIndex,loadN
     loadPrev();
   }, [loadPrev]);
 
-  const memoizedOnBookSelect = useCallback((book:any) => {
-    onBookSelect(book);
-  }, [onBookSelect]);
 
   return (
   <div className='book_list_main'>

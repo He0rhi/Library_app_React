@@ -1,0 +1,25 @@
+{"rules": {
+    "react/react-in-jsx-scope": "off",
+    "simple-import-sort/sort": "error"
+
+  },
+"env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended", "eslint:recommended",
+  "plugin:@typescript-eslint/recommended"],
+  "plugins": [
+    "simple-import-sort"
+  ],
+  "overrides": [
+    {
+      "files": ["*.tsx", "*.ts"],
+      "rules": {
+        "react/react-in-jsx-scope": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off"
+      }
+    }
+  ]
+}

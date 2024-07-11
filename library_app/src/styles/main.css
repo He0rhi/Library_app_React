@@ -18,6 +18,66 @@ html {
     font-size: 30px;
     font-weight: bold;
 }
+.emailform{
+  -webkit-box-shadow: 0 0 0px #dd0000;
+  -moz-box-shadow: 0 0 0px #e00000;
+       box-shadow: 0 0 8px #ce0000;
+
+background: transparent;
+border: none;
+margin-bottom:20px ;
+width: 60% ;
+height: 25px;
+padding: 5px;
+}
+input{
+  border: none;
+  outline:none;
+}
+
+.passwordform{
+  -webkit-box-shadow: 0 0 0px #dd0000;
+  -moz-box-shadow: 0 0 0px #e00000;
+       box-shadow: 0 0 8px #ce0000;
+
+background: transparent;
+border: none;
+width: 60% ;
+height: 25px;
+margin-bottom: 20px;
+padding:5px;
+}
+.mailspace{
+  display: flex;
+    flex-direction: column;
+}
+.signbutton{
+  display: flex;
+  margin-bottom: 20px;
+}
+.signtitle{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 40px;
+}
+.signform{
+  
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.signwindow{
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.reservecase{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
 .search_control{
 
 color: whitesmoke;

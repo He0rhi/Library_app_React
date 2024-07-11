@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React,{FC} from 'react';
 import { Card, Button } from 'react-bootstrap';
 
 interface BookDetailProps {

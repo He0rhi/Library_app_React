@@ -13,6 +13,7 @@
     "@types/react-dom": "^18.0.0",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
+    "dotenv-webpack": "^8.1.0",
     "firebase": "^10.12.3",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.4",
@@ -27,10 +28,13 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "webpack serve --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "eslintConfig": {
     "extends": [
@@ -51,8 +55,27 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-react": "^7.24.7",
+    "@eslint/compat": "^1.1.0",
+    "@eslint/js": "^9.6.0",
     "@types/firebase": "^3.2.1",
     "@types/react-redux": "^7.1.33",
-    "@types/react-router-dom": "^5.3.3"
+    "@types/react-router-dom": "^5.3.3",
+    "babel-loader": "^9.1.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "eslint": "9.x",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-react": "^7.34.3",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "globals": "^15.8.0",
+    "html-webpack-plugin": "^5.6.0",
+    "prettier": "^3.3.2",
+    "typescript-eslint": "^7.16.0",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
   }
 }

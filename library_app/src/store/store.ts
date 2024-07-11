@@ -1,4 +1,4 @@
-// store/index.ts
+
 import { configureStore } from '@reduxjs/toolkit';
 import bookSlice from './reducers/bookSlice';
 import userSlice from './reducers/userSlice'; 

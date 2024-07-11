@@ -1,7 +1,9 @@
-import { FC, useCallback } from 'react';
+import React,{ FC, useCallback } from 'react';
 import { Form, Button, FormControl, InputGroup, Row, Col, FormGroup } from 'react-bootstrap';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase';
+import { useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
 interface SearchFormProps {
   searchName: string;
   setSearchName: (term: string) => void;
@@ -29,7 +31,10 @@ const SearchForm: FC<SearchFormProps> = ({
     { value: 'medical', label: 'Medical' },
     { value: 'poetry', label: 'Poetry' }
   ];
-const [user] = useAuthState(auth);
+
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate();
+
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchName(e.target.value);
   }, [setSearchName]);
@@ -47,14 +52,34 @@ const [user] = useAuthState(auth);
       handleSearch();
     }
   }, [handleSearch]);
-if(!user){
-  return(<p>Зарегистрируйтесь!</p>);
-}
+
+  const handleSignInNavigate = () => {
+    navigate('/signin');
+  };
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      navigate('/');
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
   return (
     <div className='search_control search_control_tint'>
       <div className='header_main'>
         <div className='header_logo'>Search for books</div>
-        {}
+        {user ? (
+ <div className='mailspace'>
+ <span>{user.email}</span>
+ <span onClick={handleSignOut} className='ms-2' style={{ cursor: 'pointer'}}>Выйти</span>
+ </div>
+        ) : (
+          <div className='mailspace'>
+          <span>Вы гость</span>
+
+          <span onClick={handleSignInNavigate} style={{ cursor: 'pointer'}}>Войти</span>
+          </div>
+        )}
       </div>
       <Form onSubmit={(e) => {
         e.preventDefault();
@@ -71,7 +96,7 @@ if(!user){
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
             />
-            <Button className='search_button' onClick={handleSearch}></Button>
+            <Button className='search_button' onClick={handleSearch}/>
           </div>
         </InputGroup>
         <Row className='rows'>

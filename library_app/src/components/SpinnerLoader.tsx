@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React,{FC} from 'react';
 
 const SpinnerLoader: FC = () => {
   const faces = Array.from({ length: 6 }, (_, index) => (

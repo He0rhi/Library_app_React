@@ -5,31 +5,26 @@ import BookList from './BookList';
 import SearchForm from './SearchForm';
 import SpinnerLoader from './SpinnerLoader';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../store/store';
+import { RootState, AppDispatch } from '../store/store'; 
+import { fetchBooks, selectBook, deselectBook, setSearchParams, loadNext, loadPrev } from '../store/reducers/bookSlice';
 
 
-interface HomeProps {
-  user: any;
-}
-
-const Home: React.FC<HomeProps> = ({ user }) => {
-  const dispatch = useDispatch();
+const Home = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const { searchName, category, sorting, books, totalItems, startIndex, selectedBook, loading } = useSelector(
     (state: RootState) => state.books
   );
 
   const handleSearch = async () => {
-    dispatch(requestBooks());
     try {
-      const { books, totalItems } = await fetchBook(searchName, category, sorting, startIndex);
-      dispatch(successBooks(books, totalItems));
+      await dispatch(fetchBooks({ searchName, category, sorting, startIndex }));
     } catch (error) {
-      dispatch(errorBooks(error));
     }
   };
 
   const handleBookSelect = (book: any) => {
     dispatch(selectBook(book));
+    
   };
 
   const handleBookToList = () => {
@@ -41,16 +36,16 @@ const Home: React.FC<HomeProps> = ({ user }) => {
       <Container className="HomeMainContainer">
         <SearchForm
           searchName={searchName}
-          setSearchName={(name) => dispatch(setSearchParams(name, category, sorting))}
+          setSearchName={(name) => dispatch(setSearchParams({ searchName: name, category, sorting }))}
           category={category}
-          setCategory={(cat) => dispatch(setSearchParams(searchName, cat, sorting))}
+          setCategory={(cat) => dispatch(setSearchParams({ searchName, category: cat, sorting }))}
           sorting={sorting}
-          setSorting={(sort) => dispatch(setSearchParams(searchName, category, sort))}
+          setSorting={(sort) => dispatch(setSearchParams({ searchName, category, sorting: sort }))}
           handleSearch={handleSearch}
         />
         {loading ? (
           <SpinnerLoader />
-        ) : user ? (
+        ) : 
           selectedBook ? (
             <BookDetail book={selectedBook} onBack={handleBookToList} />
           ) : (
@@ -63,16 +58,11 @@ const Home: React.FC<HomeProps> = ({ user }) => {
               onBookSelect={handleBookSelect}
             />
           )
-        ) : (
-          <p>Please sign in to see the book list.</p>
-        )}
+       
+        }
       </Container>
     </div>
   );
 };
-
-const requestBooks = () => ({ type: 'BOOK_REQUEST' });
-const successBooks = (books: any, totalItems: any) => ({ type: 'BOOK_SUCCESS', payload: { books, totalItems } });
-const errorBooks = (error: any) => ({ type: 'BOOK_ERROR', payload: error });
 
 export default Home;
