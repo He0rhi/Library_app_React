@@ -81,7 +81,7 @@ const SearchForm: FC<SearchFormProps> = ({
           </div>
         )}
       </div>
-      <Form onSubmit={(e) => {
+      <Form className='input_group' onSubmit={(e) => {
         e.preventDefault();
         handleSearch();
       }}>

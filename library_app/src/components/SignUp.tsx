@@ -62,7 +62,7 @@ const SignUp: React.FC = () => {
      
       <div className='reservecase'>
       <p>
-        Уже есть аккаунт? <Link to="/signin">Войти</Link>
+        Уже есть аккаунт? <Link  to="/signin">Войти</Link>
       </p>
       </div>
     </div>
